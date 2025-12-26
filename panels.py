@@ -21,6 +21,7 @@ class MN_PT_MainPanel(Panel):
         layout.label(text="Add Components:")
         col = layout.column(align=True)
         col.operator("millwork_nodes.add_panel", icon='MESH_PLANE')
+        col.operator("millwork_nodes.add_carcass", icon='MESH_CUBE')
         
         layout.separator()
         
@@ -28,11 +29,12 @@ class MN_PT_MainPanel(Panel):
         layout.label(text="Node Groups:")
         col = layout.column(align=True)
         col.operator("millwork_nodes.create_panel_nodegroup", icon='NODETREE')
+        col.operator("millwork_nodes.create_carcass_nodegroup", icon='NODETREE')
 
 
 class MN_PT_ActiveObjectPanel(Panel):
     """Panel showing parameters for active millwork object"""
-    bl_label = "Active Panel"
+    bl_label = "Active Component"
     bl_idname = "MN_PT_active_object"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -59,11 +61,11 @@ class MN_PT_ActiveObjectPanel(Panel):
         for mod in obj.modifiers:
             if mod.type == 'NODES' and mod.node_group:
                 if mod.node_group.name.startswith("MN_"):
-                    # Draw modifier inputs
-                    layout.label(text=f"Modifier: {mod.name}")
+                    # Show node group name
+                    layout.label(text=f"Type: {mod.node_group.name}")
+                    layout.separator()
                     
-                    # Use the modifier's draw method for inputs
-                    # This automatically handles the node group inputs
+                    # Draw modifier inputs
                     for item in mod.node_group.interface.items_tree:
                         if item.item_type == 'SOCKET' and item.in_out == 'INPUT':
                             layout.prop(mod, f'["{item.identifier}"]', text=item.name)
