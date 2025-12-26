@@ -4,9 +4,10 @@ Operators for Millwork Nodes add-on.
 
 import bpy
 from bpy.types import Operator
-from bpy.props import FloatProperty, StringProperty
+from bpy.props import FloatProperty, IntProperty, EnumProperty
 
 from .node_groups import get_or_create_panel_node_group
+from .node_groups.panel import GRAIN_LENGTH, GRAIN_WIDTH
 
 
 class MN_OT_AddPanel(Operator):
@@ -17,14 +18,14 @@ class MN_OT_AddPanel(Operator):
     
     length: FloatProperty(
         name="Length",
-        description="Panel width (X dimension)",
+        description="Panel length (X dimension)",
         default=0.6096,  # 24 inches
         min=0.001,
         unit='LENGTH',
     )
     width: FloatProperty(
         name="Width",
-        description="Panel height (Y dimension)",
+        description="Panel width (Y dimension)",
         default=0.3048,  # 12 inches
         min=0.001,
         unit='LENGTH',
@@ -35,6 +36,15 @@ class MN_OT_AddPanel(Operator):
         default=0.01905,  # 3/4 inch
         min=0.001,
         unit='LENGTH',
+    )
+    grain_direction: EnumProperty(
+        name="Grain Direction",
+        description="Direction of material grain",
+        items=[
+            ('LENGTH', "Along Length", "Grain runs along the length (X axis)"),
+            ('WIDTH', "Along Width", "Grain runs along the width (Y axis)"),
+        ],
+        default='LENGTH',
     )
     
     def execute(self, context):
@@ -57,6 +67,9 @@ class MN_OT_AddPanel(Operator):
         node_group = get_or_create_panel_node_group()
         modifier.node_group = node_group
         
+        # Convert grain direction enum to integer
+        grain_int = GRAIN_LENGTH if self.grain_direction == 'LENGTH' else GRAIN_WIDTH
+        
         # Set the input values from operator properties
         # In Blender 4.0+, modifier inputs use identifier-based access
         for item in node_group.interface.items_tree:
@@ -68,6 +81,8 @@ class MN_OT_AddPanel(Operator):
                     modifier[identifier] = self.width
                 elif item.name == "Thickness":
                     modifier[identifier] = self.thickness
+                elif item.name == "Grain Direction":
+                    modifier[identifier] = grain_int
         
         # Position at 3D cursor
         obj.location = context.scene.cursor.location.copy()

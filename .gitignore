@@ -29,3 +29,4 @@ Thumbs.db
 
 # Project specific
 *.log
+uv.lock
