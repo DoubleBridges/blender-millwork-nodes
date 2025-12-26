@@ -1,5 +1,5 @@
 """
-Operators for Cabinet Nodes add-on.
+Operators for Millwork Nodes add-on.
 """
 
 import bpy
@@ -9,9 +9,9 @@ from bpy.props import FloatProperty, StringProperty
 from .node_groups import get_or_create_panel_node_group
 
 
-class CN_OT_AddPanel(Operator):
+class MN_OT_AddPanel(Operator):
     """Add a parametric panel object with geometry nodes"""
-    bl_idname = "cabinet_nodes.add_panel"
+    bl_idname = "millwork_nodes.add_panel"
     bl_label = "Add Panel"
     bl_options = {'REGISTER', 'UNDO'}
     
@@ -51,7 +51,7 @@ class CN_OT_AddPanel(Operator):
         context.view_layer.objects.active = obj
         
         # Add geometry nodes modifier
-        modifier = obj.modifiers.new(name="Cabinet Nodes", type='NODES')
+        modifier = obj.modifiers.new(name="Millwork Nodes", type='NODES')
         
         # Get or create the panel node group
         node_group = get_or_create_panel_node_group()
@@ -78,9 +78,9 @@ class CN_OT_AddPanel(Operator):
         return context.window_manager.invoke_props_dialog(self)
 
 
-class CN_OT_CreatePanelNodeGroup(Operator):
+class MN_OT_CreatePanelNodeGroup(Operator):
     """Create the Panel node group in the blend file"""
-    bl_idname = "cabinet_nodes.create_panel_nodegroup"
+    bl_idname = "millwork_nodes.create_panel_nodegroup"
     bl_label = "Create Panel Node Group"
     bl_options = {'REGISTER', 'UNDO'}
     
@@ -92,8 +92,8 @@ class CN_OT_CreatePanelNodeGroup(Operator):
 
 # Registration
 classes = (
-    CN_OT_AddPanel,
-    CN_OT_CreatePanelNodeGroup,
+    MN_OT_AddPanel,
+    MN_OT_CreatePanelNodeGroup,
 )
 
 

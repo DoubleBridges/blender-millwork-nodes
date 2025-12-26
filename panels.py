@@ -1,18 +1,18 @@
 """
-UI Panels for Cabinet Nodes add-on.
+UI Panels for Millwork Nodes add-on.
 """
 
 import bpy
 from bpy.types import Panel
 
 
-class CN_PT_MainPanel(Panel):
-    """Main panel for Cabinet Nodes in the 3D View sidebar"""
-    bl_label = "Cabinet Nodes"
-    bl_idname = "CN_PT_main_panel"
+class MN_PT_MainPanel(Panel):
+    """Main panel for Millwork Nodes in the 3D View sidebar"""
+    bl_label = "Millwork Nodes"
+    bl_idname = "MN_PT_main_panel"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = "Cabinet Nodes"
+    bl_category = "Millwork Nodes"
     
     def draw(self, context):
         layout = self.layout
@@ -20,34 +20,34 @@ class CN_PT_MainPanel(Panel):
         # Components section
         layout.label(text="Add Components:")
         col = layout.column(align=True)
-        col.operator("cabinet_nodes.add_panel", icon='MESH_PLANE')
+        col.operator("millwork_nodes.add_panel", icon='MESH_PLANE')
         
         layout.separator()
         
         # Node Groups section
         layout.label(text="Node Groups:")
         col = layout.column(align=True)
-        col.operator("cabinet_nodes.create_panel_nodegroup", icon='NODETREE')
+        col.operator("millwork_nodes.create_panel_nodegroup", icon='NODETREE')
 
 
-class CN_PT_ActiveObjectPanel(Panel):
-    """Panel showing parameters for active cabinet object"""
+class MN_PT_ActiveObjectPanel(Panel):
+    """Panel showing parameters for active millwork object"""
     bl_label = "Active Panel"
-    bl_idname = "CN_PT_active_object"
+    bl_idname = "MN_PT_active_object"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = "Cabinet Nodes"
+    bl_category = "Millwork Nodes"
     bl_options = {'DEFAULT_CLOSED'}
     
     @classmethod
     def poll(cls, context):
-        """Only show when active object has a Cabinet Nodes modifier"""
+        """Only show when active object has a Millwork Nodes modifier"""
         obj = context.active_object
         if obj is None:
             return False
         for mod in obj.modifiers:
             if mod.type == 'NODES' and mod.node_group:
-                if mod.node_group.name.startswith("CN_"):
+                if mod.node_group.name.startswith("MN_"):
                     return True
         return False
     
@@ -55,10 +55,10 @@ class CN_PT_ActiveObjectPanel(Panel):
         layout = self.layout
         obj = context.active_object
         
-        # Find the cabinet nodes modifier
+        # Find the millwork nodes modifier
         for mod in obj.modifiers:
             if mod.type == 'NODES' and mod.node_group:
-                if mod.node_group.name.startswith("CN_"):
+                if mod.node_group.name.startswith("MN_"):
                     # Draw modifier inputs
                     layout.label(text=f"Modifier: {mod.name}")
                     
@@ -72,8 +72,8 @@ class CN_PT_ActiveObjectPanel(Panel):
 
 # Registration
 classes = (
-    CN_PT_MainPanel,
-    CN_PT_ActiveObjectPanel,
+    MN_PT_MainPanel,
+    MN_PT_ActiveObjectPanel,
 )
 
 

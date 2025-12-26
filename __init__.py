@@ -1,10 +1,10 @@
 bl_info = {
-    "name": "Cabinet Nodes",
+    "name": "Millwork Nodes",
     "author": "Dave Kane",
     "version": (0, 1, 0),
     "blender": (5, 0, 0),
-    "location": "View3D > Sidebar > Cabinet Nodes",
-    "description": "Parametric geometry nodes for cabinet and sheet goods construction",
+    "location": "View3D > Sidebar > Millwork Nodes",
+    "description": "Native design-to-production system for custom millwork using geometry nodes",
     "category": "Object",
 }
 

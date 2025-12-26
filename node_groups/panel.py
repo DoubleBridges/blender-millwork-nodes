@@ -7,14 +7,16 @@ The panel is created as a box centered at origin, with:
 - Width along Y axis
 - Thickness along Z axis
 
-This orientation matches typical cabinet conventions where panels
+This orientation matches typical millwork conventions where panels
 are modeled "laying flat" and then rotated into position.
+
+TODO: Implement corner-origin positioning per ADR-0001
 """
 
 import bpy
 
 
-def create_panel_node_group(name: str = "CN_Panel") -> bpy.types.GeometryNodeTree:
+def create_panel_node_group(name: str = "MN_Panel") -> bpy.types.GeometryNodeTree:
     """
     Create a parametric panel geometry node group.
     
@@ -59,7 +61,7 @@ def create_panel_node_group(name: str = "CN_Panel") -> bpy.types.GeometryNodeTre
             item.default_value = 0.6096  # 24 inches in meters
             item.min_value = 0.001
             item.subtype = 'DISTANCE'
-        elif item.name == "WIdth":
+        elif item.name == "Width":
             item.default_value = 0.3048  # 12 inches in meters
             item.min_value = 0.001
             item.subtype = 'DISTANCE'
@@ -106,7 +108,7 @@ def create_panel_node_group(name: str = "CN_Panel") -> bpy.types.GeometryNodeTre
     return node_tree
 
 
-def get_or_create_panel_node_group(name: str = "CN_Panel") -> bpy.types.GeometryNodeTree:
+def get_or_create_panel_node_group(name: str = "MN_Panel") -> bpy.types.GeometryNodeTree:
     """
     Get existing panel node group or create a new one.
     

@@ -13,17 +13,18 @@ The schema is the product. Blender is a renderer.
 ## Key Files
 
 ```
-blender-millwork-nodes/  (currently named blender-cabinet-nodes)
-├── __init__.py              # Add-on registration
-├── operators.py             # Blender operators
-├── panels.py                # UI panels
+blender-millwork-nodes/
+├── __init__.py              # Add-on registration (bl_info)
+├── operators.py             # Blender operators (MN_OT_*)
+├── panels.py                # UI panels (MN_PT_*)
 ├── node_groups/
-│   └── panel.py             # CN_Panel (to become MN_Panel)
+│   ├── __init__.py          # Node group exports
+│   └── panel.py             # MN_Panel geometry node group
 ├── schemas/                 # Component Assembly Schema (planned)
 └── docs/
     ├── PROJECT_NORTH_STAR.md    # Vision and full scope
     ├── ECOSYSTEM_ALIGNMENT.md   # Conduit relationship
-    └── decisions/               # ADRs (6 so far)
+    └── decisions/               # ADRs (7 so far)
 ```
 
 ## Core Concepts
@@ -64,13 +65,22 @@ Conduit (business data) → Millwork Nodes → Shop Drawings + Parts → CAM/Nes
 
 ## Current State
 
-- ✅ Basic add-on structure
-- ✅ CN_Panel node group (proof of concept)
-- ✅ 6 ADRs documenting architecture
-- 🎯 Next: Rename to Millwork Nodes (MN_ prefix)
+- ✅ Add-on structure with MN_ prefix
+- ✅ MN_Panel node group (proof of concept)
+- ✅ 7 ADRs documenting architecture
+- ✅ GitHub repo: https://github.com/DoubleBridges/blender-millwork-nodes
 - 🎯 Next: Implement corner-origin positioning
 - 🎯 Next: Create Component Assembly Schema
 - 🔮 Future: Shop drawing generation system
+
+## Naming Conventions
+
+| Scope | Convention |
+|-------|------------|
+| Node groups | `MN_` prefix (e.g., `MN_Panel`) |
+| Operators | `MN_OT_` prefix, `millwork_nodes.*` idname |
+| Panels | `MN_PT_` prefix |
+| Data model | Component Assembly Schema (CAS) |
 
 ## Guiding Principles
 
@@ -78,15 +88,6 @@ Conduit (business data) → Millwork Nodes → Shop Drawings + Parts → CAM/Nes
 2. **Transparent beats black box** - Logic is visible and editable
 3. **Native path for control** - Legacy adapters for compatibility
 4. **Two outputs, one source** - Drawings and parts from same model
-
-## Naming
-
-| Scope | Current | Target |
-|-------|---------|--------|
-| Repository | blender-cabinet-nodes | blender-millwork-nodes |
-| Node prefix | CN_ | MN_ |
-| Data model | (unnamed) | Component Assembly Schema |
-| Add-on name | Cabinet Nodes | Millwork Nodes |
 
 ## Key ADRs
 
@@ -98,6 +99,7 @@ Conduit (business data) → Millwork Nodes → Shop Drawings + Parts → CAM/Nes
 | 0004 | Output boundary (DXF + cut list) |
 | 0005 | Library-driven workflow with selection UI |
 | 0006 | Native shop drawing generation |
+| 0007 | Naming (Millwork Nodes + Component Assembly Schema) |
 
 ## When Starting a Conversation
 
