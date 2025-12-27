@@ -108,3 +108,13 @@ Conduit (business data) → Millwork Nodes → Shop Drawings + Parts → CAM/Nes
 3. Review relevant ADRs in `docs/decisions/`
 4. Remember: TWO outputs (drawings AND parts)
 5. Current code is POC; focus on architecture
+
+## Development Standards
+
+This project follows [MARS Platform standards](https://github.com/Mars-Platform/blueprint):
+
+- [Commit Conventions](https://github.com/Mars-Platform/blueprint/blob/master/docs/commit-conventions.md) — Conventional commits
+- [Branch Conventions](https://github.com/Mars-Platform/blueprint/blob/master/docs/branch-conventions.md) — Branch naming
+- [ADR Standards](https://github.com/Mars-Platform/blueprint/blob/master/docs/adr-standards.md) — Decision records
+
+See `CONTRIBUTING.md` for full development workflow.
