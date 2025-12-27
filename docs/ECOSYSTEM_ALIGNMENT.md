@@ -1,7 +1,10 @@
 # Ecosystem Alignment: Millwork Nodes ↔ Conduit
 
 **Date**: 2025-12-26  
+**Updated**: 2025-12-27  
 **Purpose**: Define the relationship between Millwork Nodes and Conduit, identify integration points, and clarify responsibilities.
+
+> **Canonical Reference**: This document provides Millwork Nodes-specific context. For ecosystem-wide architecture, see [Blueprint ADR-0001](https://github.com/Mars-Platform/blueprint/blob/main/adr/0001-ecosystem-architecture.md).
 
 ---
 
@@ -307,7 +310,7 @@ The simplified model remains for:
    - Recommendation: Convert at boundaries, store in canonical units (mm)
 
 2. **Material library location**: Does it live in Conduit, Millwork Nodes, or a shared service?
-   - Recommendation: Shared service (knowledge graph), both reference
+   - **Resolved**: Shared service (Knowledge Graph). See [Blueprint ADR-0001](https://github.com/Mars-Platform/blueprint/blob/main/adr/0001-ecosystem-architecture.md).
 
 3. **Construction method authoring**: Where are methods created and edited?
    - Recommendation: Separate tool/UI, both systems consume
@@ -315,6 +318,9 @@ The simplified model remains for:
 4. **Feedback loop**: How does production data flow back to inform future estimates?
    - Future consideration, not blocking
 
+5. **Persistence layer**: What database technology for shared data?
+   - **Resolved**: PostgreSQL as primary, with specialized databases (graph, vector) as complements. See [Blueprint ADR-0002](https://github.com/Mars-Platform/blueprint/blob/main/adr/0002-updm-persistence-strategy.md).
+
 ---
 
-*Last updated: 2025-12-26*
+*Last updated: 2025-12-27*
